@@ -25,7 +25,7 @@ export default function App() {
 
   React.useEffect(() => {
     // Ping the backend to wake it up from sleep (Render free tier)
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:8000" : "https://easy-hire-ai.onrender.com");
     axios.get(`${API_URL}/health`).catch(() => {
       // Ignore errors, we just want to wake it up
     });
@@ -60,7 +60,7 @@ export default function App() {
     resumeFiles.forEach((file) => formData.append("files", file));
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:8000" : "https://easy-hire-ai.onrender.com");
       const response = await axios.post(`${API_URL}/api/rank-resumes`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
